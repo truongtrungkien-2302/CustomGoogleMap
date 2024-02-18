@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="42px" viewBox="0 0 32 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+    <title>icLocation</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icLocation" sketch:type="MSLayerGroup">
+            <g id="Artboard-1" sketch:type="MSShapeGroup">
+                <g id="Page-1">
+                    <g id="Artboard-1">
+                        <rect id="Rectangle-1" x="0.5" y="0.5" width="31" height="41"></rect>
+                        <g id="Path_352-+-Ellipse_267" transform="translate(0.500000, 0.500000)" stroke="#000000" fill="#FFFFFF">
+                            <path d="M31,16.0300956 C31,28.2884043 15.5,40.5467127 15.5,40.5467127 C15.5,40.5467127 0,28.3468668 0,16.0300956 C1.35155709e-07,7.17691822 6.93958647,0 15.5,0 C24.0604135,0 30.9999998,7.17691822 31,16.0300956 Z M15.5,29 C22.9558441,29 29,22.9558441 29,15.5 C29,8.04415588 22.9558441,2 15.5,2 C8.04415588,2 2,8.04415588 2,15.5 C2,22.9558441 8.04415588,29 15.5,29 Z" id="Path_352"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

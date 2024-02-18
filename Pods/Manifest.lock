@@ -1,0 +1,100 @@
+PODS:
+  - Alamofire (5.8.1)
+  - CocoaDebug (1.7.7)
+  - CocoaLumberjack (3.8.4):
+    - CocoaLumberjack/Core (= 3.8.4)
+  - CocoaLumberjack/Core (3.8.4)
+  - Google-Maps-iOS-Utils (4.2.2):
+    - Google-Maps-iOS-Utils/Clustering (= 4.2.2)
+    - Google-Maps-iOS-Utils/Geometry (= 4.2.2)
+    - Google-Maps-iOS-Utils/GeometryUtils (= 4.2.2)
+    - Google-Maps-iOS-Utils/Heatmap (= 4.2.2)
+    - Google-Maps-iOS-Utils/QuadTree (= 4.2.2)
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Clustering (4.2.2):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Geometry (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/GeometryUtils (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Heatmap (4.2.2):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/QuadTree (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - Kingfisher (7.11.0)
+  - ObjectMapper (4.2.0)
+  - Permission/Camera (3.1.2):
+    - Permission/Core
+  - Permission/Contacts (3.1.2):
+    - Permission/Core
+  - Permission/Core (3.1.2)
+  - Permission/Location (3.1.2):
+    - Permission/Core
+  - Permission/Microphone (3.1.2):
+    - Permission/Core
+  - Permission/Notifications (3.1.2):
+    - Permission/Core
+  - Permission/Photos (3.1.2):
+    - Permission/Core
+  - Permission/SpeechRecognizer (3.1.2):
+    - Permission/Core
+  - SnapKit (5.6.0)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
+  - SwiftyJSON (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - CocoaDebug
+  - Google-Maps-iOS-Utils
+  - GoogleMaps
+  - Kingfisher
+  - ObjectMapper
+  - Permission/Camera
+  - Permission/Contacts
+  - Permission/Location
+  - Permission/Microphone
+  - Permission/Notifications
+  - Permission/Photos
+  - Permission/SpeechRecognizer
+  - SnapKit
+  - SVGKit
+  - SwiftyJSON
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CocoaDebug
+    - CocoaLumberjack
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
+    - Kingfisher
+    - ObjectMapper
+    - Permission
+    - SnapKit
+    - SVGKit
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
+  CocoaDebug: b38d31464b91a9775928f8667d114db07b136565
+  CocoaLumberjack: df59726690390bb8aaaa585938564ba1c8dbbb44
+  Google-Maps-iOS-Utils: f77eab4c4326d7e6a277f8e23a0232402731913a
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  Permission: 4821359fb4d4367fb59aa16df38fbba5722ac842
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+
+PODFILE CHECKSUM: f1313e9a938d6fe5af2b14fab0883223d37635b3
+
+COCOAPODS: 1.14.3
