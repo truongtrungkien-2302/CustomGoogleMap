@@ -154,27 +154,6 @@ open class ChannelViewController: ViewController,
     private var lastAnimatedIndexPath: IndexPath? = nil
     private var selectMessageId: MessageId?
     
-    open lazy var checkboxView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    open lazy var checkboxButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    open lazy var checkboxLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    open var isThreadConversation = false
-    open var isPreview: Bool = false
-    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.delegate = self
@@ -328,66 +307,41 @@ open class ChannelViewController: ViewController,
         
         view.addSubview(collectionView)
         view.addSubview(emptyStateView)
+        view.addSubview(coverView)
         view.addSubview(searchControlsView)
+        addChild(customInputViewController)
+        coverView.addSubview(customInputViewController.view)
+        coverView.addSubview(unreadCountView)
         view.addSubview(joinGlobalChannelButton)
         
-        if !isPreview {
-            view.addSubview(coverView)
-            addChild(customInputViewController)
-            coverView.addSubview(customInputViewController.view)
-            coverView.addSubview(unreadCountView)
-            coverView.addSubview(checkboxView)
-            
-            let sizeCheckboxView: CGFloat = self.isThreadConversation ? CGFloat(40) : CGFloat(0)
-            
-            // Pin checkboxView to the bottom of coverView, above the safe area
-            checkboxView.pin(to: coverView, anchors: [.leading, .trailing])
-            messageInputViewBottomConstraint = checkboxView.bottomAnchor.pin(to: coverView.safeAreaLayoutGuide.bottomAnchor)
-            checkboxView.resize(anchors: [.height(sizeCheckboxView)])
-
-            // Pin customInputViewController.view above the checkboxView
-            customInputViewController.view.pin(to: coverView.safeAreaLayoutGuide, anchors: [.leading, .trailing])
-            customInputViewController.view.bottomAnchor.pin(to: checkboxView.topAnchor)
-            messageInputViewHeightConstraint = customInputViewController.view.resize(anchors: [.height(CGFloat(52 + sizeCheckboxView))]).first!
-            
-            checkboxView.addSubview(checkboxButton)
-            checkboxView.addSubview(checkboxLabel)
-
-            checkboxButton.pin(to: checkboxView, anchors: [.leading(16), .centerY])
-            checkboxButton.resize(anchors: [.width(20), .height(20)])
-
-            checkboxLabel.leadingAnchor.pin(to: checkboxButton.trailingAnchor, constant: 12)
-            checkboxLabel.pin(to: checkboxView, anchors: [.trailing(16), .centerY])
-            
-            view.addSubview(keyboardBgView)
-            keyboardBgView.pin(to: view, anchors: [.leading, .trailing, .bottom])
-            keyboardBgView.topAnchor.pin(to: checkboxView.bottomAnchor)
-            
-            view.addSubview(selectingView)
-            selectingView.pin(to: view, anchors: [.leading, .trailing])
-            selectingView.bottomAnchor.pin(to: checkboxView.topAnchor)
-            
-            unreadCountView.trailingAnchor.pin(to: customInputViewController.view.trailingAnchor, constant: -10)
-            unreadCountView.bottomAnchor.pin(to: customInputViewController.view.topAnchor, constant: -10)
-            unreadCountView.resize(anchors: [.width(44), .height(48)])
-            
-            coverView.pin(to: view.safeAreaLayoutGuide)
-            collectionView.bottomAnchor.pin(to: coverView.safeAreaLayoutGuide.bottomAnchor)
-            emptyStateView.bottomAnchor.pin(to: customInputViewController.view.topAnchor)
-        } else {
-            collectionView.pin(to: view.safeAreaLayoutGuide)
-            emptyStateView.bottomAnchor.pin(to: view.safeAreaLayoutGuide.bottomAnchor)
-        }
+        messageInputViewBottomConstraint = customInputViewController.view.bottomAnchor.pin(to: coverView.safeAreaLayoutGuide.bottomAnchor)
+        messageInputViewHeightConstraint = customInputViewController.view.resize(anchors: [.height(52)]).first!
         
         searchControlsViewBottomConstraint = searchControlsView.bottomAnchor.pin(to: view.safeAreaLayoutGuide.bottomAnchor)
         searchControlsView.pin(to: view.safeAreaLayoutGuide, anchors: [.leading, .trailing])
         
         updateCollectionViewInsets()
+        coverView.pin(to: view.safeAreaLayoutGuide)
         collectionView.pin(to: view.safeAreaLayoutGuide, anchors: [.leading, .trailing, .top])
+        collectionView.bottomAnchor.pin(to: coverView.safeAreaLayoutGuide.bottomAnchor)
         emptyStateView.pin(to: view, anchors: [.leading, .trailing])
         emptyStateView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor)
+        emptyStateView.bottomAnchor.pin(to: customInputViewController.view.topAnchor)
+        customInputViewController.view.pin(to: coverView.safeAreaLayoutGuide, anchors: [.leading, .trailing])
+        unreadCountView.trailingAnchor.pin(to: customInputViewController.view.trailingAnchor, constant: -10)
+        unreadCountView.bottomAnchor.pin(to: customInputViewController.view.topAnchor, constant: -10)
+        unreadCountView.resize(anchors: [.width(44), .height(48)])
         joinGlobalChannelButton.pin(to: view.safeAreaLayoutGuide, anchors: [.leading, .trailing, .bottom])
         joinGlobalChannelButton.resize(anchors: [.height(52)])
+        
+        view.addSubview(keyboardBgView)
+        keyboardBgView.pin(to: view, anchors: [.leading, .trailing, .bottom])
+        keyboardBgView.topAnchor.pin(to: customInputViewController.view.bottomAnchor)
+        
+        view.addSubview(selectingView)
+        selectingView.pin(to: view, anchors: [.leading, .trailing])
+        selectingView.bottomAnchor.pin(to: customInputViewController.view.bottomAnchor)
+        
         
         if let view = searchBar.searchTextField.leftView {
             view.addSubview(searchBarActivityIndicator)
@@ -420,17 +374,6 @@ open class ChannelViewController: ViewController,
         searchControlsView.parentAppearance = Components.messageInputViewController.appearance.messageSearchControlsAppearance
         bottomView.parentAppearance = Components.messageInputViewController.appearance.coverAppearance
         selectingView.parentAppearance = Components.messageInputViewController.appearance.selectedMessagesActionsAppearance
-
-        checkboxView.backgroundColor = UIColor.blue
-        checkboxButton.setImage(UIImage(systemName: "square"), for: .normal)
-        checkboxButton.tintColor = .white
-        checkboxLabel.text = "Gửi tin nhắn vào hội thoại chung"
-        checkboxLabel.font = .systemFont(ofSize: 15)
-        checkboxLabel.textColor = .white
-
-        checkboxView.isHidden = !self.isThreadConversation
-        checkboxButton.isHidden = !self.isThreadConversation
-        checkboxLabel.isHidden = !self.isThreadConversation
     }
     
     override open func setupDone() {
@@ -620,21 +563,11 @@ open class ChannelViewController: ViewController,
     }
     
     private func updateCollectionViewInsets() {
-        if self.isPreview {
-            collectionView.contentInset.bottom = 10
-            collectionView.scrollIndicatorInsets = .init(
-                top: collectionView.contentInset.top,
-                left: 0,
-                bottom: collectionView.contentInset.bottom,
-                right: 0)
-            return
-        }
         let bottomConstraint = searchControlsView.isHidden
         ? messageInputViewBottomConstraint.constant
         : searchControlsViewBottomConstraint.constant
         let controlHeight = searchControlsView.isHidden
-//        ? messageInputViewHeightConstraint.constant
-         ? messageInputViewHeightConstraint.constant + checkboxView.frame.height
+        ? messageInputViewHeightConstraint.constant
         : searchControlsView.frame.height
         
         collectionView.contentInset.bottom =
@@ -1383,8 +1316,6 @@ open class ChannelViewController: ViewController,
             cell.contentView.subviews.forEach({ $0.isHidden = true })
             return cell
         }
-        // model.isThreadConversation = self.isThreadConversation
-        model.message.isThreadConversation = self.isThreadConversation
         return cellForItemAt(
             indexPath: indexPath,
             collectionView: collectionView,
@@ -1645,7 +1576,10 @@ open class ChannelViewController: ViewController,
             isScrollingBottom = true
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.scrollToBottom(animated: true)
+                // Prevents scrolling when the first message is sent.
+                if self.channelViewModel.numberOfSections != 0 {
+                    self.scrollToBottom(animated: true)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
                     self?.canShowUnreadCountView = canShowUnread
                 }
@@ -2303,14 +2237,14 @@ open class ChannelViewController: ViewController,
                         self?.reply(layoutModel: model, in: false)
                     }
                 ),
-                .init(
-                    title: L10n.Message.Action.Title.replyInThread,
-                    image: .messageActionReplyInThread,
-                    imageRenderingMode: .alwaysTemplate,
-                    action: { [weak self] _ in
-                        self?.reply(layoutModel: model, in: true)
-                    }
-                )
+//                .init(
+//                    title: L10n.Message.Action.Title.replyInThread,
+//                    image: .messageActionReplyInThread,
+//                    imageRenderingMode: .alwaysTemplate,
+//                    action: { [weak self] _ in
+//                        self?.reply(layoutModel: model, in: true)
+//                    }
+//                )
             ]
         }
         
